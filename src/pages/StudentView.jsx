@@ -32,22 +32,28 @@ const StudentView = ({ studentId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const sessionResponse = await fetch(
-          "https://a00573055.pythonanywhere.com/Sesion/"
-        );
-        const sessionData = await sessionResponse.json();
+        // ============ API CALLS COMMENTED OUT ============
+        // const sessionResponse = await fetch(
+        //   "https://a00573055.pythonanywhere.com/Sesion/"
+        // );
+        // const sessionData = await sessionResponse.json();
 
-        const completedGames = [];
-        const coins = [];
-        const dates = [];
+        // const completedGames = [];
+        // const coins = [];
+        // const dates = [];
 
-        sessionData.forEach((element) => {
-          if (element.id_jugador == studentId) {
-            completedGames.push(element.juegos_completados);
-            coins.push(element.monedas_ganadas);
-            dates.push(element.fecha);
-          }
-        });
+        // sessionData.forEach((element) => {
+        //   if (element.id_jugador == studentId) {
+        //     completedGames.push(element.juegos_completados);
+        //     coins.push(element.monedas_ganadas);
+        //     dates.push(element.fecha);
+        //   }
+        // });
+
+        // ============ HARDCODED DATA ============
+        const completedGames = [3, 5, 8, 12, 15, 18, 20];
+        const coins = [120, 180, 280, 450, 580, 720, 850];
+        const dates = ["2024-01-15", "2024-01-20", "2024-01-25", "2024-02-01", "2024-02-08", "2024-02-15", "2024-02-22"];
 
         console.log("completedGames: ", completedGames);
         setChartData1({
@@ -78,17 +84,33 @@ const StudentView = ({ studentId }) => {
           ],
         });
 
-        const playerResponse = await fetch(
-          `https://a00573055.pythonanywhere.com/Jugador/${studentId}`
-        );
-        const playerData = await playerResponse.json();
+        // const playerResponse = await fetch(
+        //   `https://a00573055.pythonanywhere.com/Jugador/${studentId}`
+        // );
+        // const playerData = await playerResponse.json();
+
+        // let genero = "";
+        // const grupo = playerData.grupo;
+        // const id = playerData.id;
+        // const id_docente = playerData.id_docente;
+        // const monedas = playerData.monedas;
+
+        // if (playerData.genero === "H" || playerData.genero === "M") {
+        //   genero = "Masculino";
+        // } else if (playerData.genero === "F") {
+        //   genero = "Femenino";
+        // }
+
+        // ============ HARDCODED PLAYER DATA ============
+        const playerData = {
+          genero: "M",
+          grupo: "A",
+          id: 1,
+          id_docente: 2,
+          monedas: 850
+        };
 
         let genero = "";
-        const grupo = playerData.grupo;
-        const id = playerData.id;
-        const id_docente = playerData.id_docente;
-        const monedas = playerData.monedas;
-
         if (playerData.genero === "H" || playerData.genero === "M") {
           genero = "Masculino";
         } else if (playerData.genero === "F") {
@@ -97,10 +119,10 @@ const StudentView = ({ studentId }) => {
 
         setData({
           genero: genero,
-          grupo: grupo,
-          id: id,
-          id_docente: id_docente,
-          monedas: monedas,
+          grupo: playerData.grupo,
+          id: playerData.id,
+          id_docente: playerData.id_docente,
+          monedas: playerData.monedas,
         });
       } catch (error) {
         console.error("Error fetching data:", error);

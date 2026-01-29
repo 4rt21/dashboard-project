@@ -22,13 +22,45 @@ export default function ProfesorView({ profesorId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [sessionResponse, topResponse] = await Promise.all([
-          fetch(`https://a00573055.pythonanywhere.com/db/aprobados/${group}`),
-          fetch(`https://a00573055.pythonanywhere.com/db/top/${group}`),
-        ]);
+        // ============ API CALLS COMMENTED OUT ============
+        // const [sessionResponse, topResponse] = await Promise.all([
+        //   fetch(`https://a00573055.pythonanywhere.com/db/aprobados/${group}`),
+        //   fetch(`https://a00573055.pythonanywhere.com/db/top/${group}`),
+        // ]);
 
-        const sessionData = await sessionResponse.json();
-        const topData = await topResponse.json();
+        // const sessionData = await sessionResponse.json();
+        // const topData = await topResponse.json();
+
+        // console.log("Session Data:", sessionData);
+        // console.log("Top Data:", topData);
+
+        // ============ HARDCODED DATA ============
+        const topData = {
+          top: [
+            { id: "Estudiante 1", monedas: 850 },
+            { id: "Estudiante 3", monedas: 780 },
+            { id: "Estudiante 7", monedas: 720 },
+            { id: "Estudiante 5", monedas: 680 },
+            { id: "Estudiante 9", monedas: 620 },
+          ],
+          min: [
+            { id: "Estudiante 15", monedas: 180 },
+            { id: "Estudiante 12", monedas: 220 },
+            { id: "Estudiante 18", monedas: 280 },
+            { id: "Estudiante 10", monedas: 320 },
+            { id: "Estudiante 14", monedas: 360 },
+          ],
+        };
+
+        const sessionData = {
+          aprobados: [
+            { aprobados: 10, no_aprobado: 2 },  // Nivel 1
+            { aprobados: 9, no_aprobado: 3 },   // Nivel 2
+            { aprobados: 8, no_aprobado: 4 },   // Nivel 3
+            { aprobados: 7, no_aprobado: 5 },   // Nivel 4
+            { aprobados: 6, no_aprobado: 6 },   // Nivel 5
+          ]
+        };
 
         console.log("Session Data:", sessionData);
         console.log("Top Data:", topData);

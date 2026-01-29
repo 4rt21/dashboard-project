@@ -5,50 +5,24 @@ const LOGIN_URL = "https://a00573055.pythonanywhere.com/login";
 const regex = /profe/;
 
 export default function Login({ onLoginSuccess }) {
-  const [user, setUser] = useState("");
-  const [group, setGroup] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   async function handleLogin(event) {
     event.preventDefault();
 
-    try {
-      const response = await fetch(LOGIN_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ numero_lista: user, grupo: group }),
-      });
-
-      const text = await response.text(); // usa text() primero para ver el cuerpo
-
-      if (!response.ok) {
-        throw new Error("Backend error");
-      }
-
-      const data = JSON.parse(text);
-
-      if (data.nombre === "admin") {
-        sessionStorage.setItem("token", "admin");
-      } else if (regex.test(data.nombre)) {
-        sessionStorage.setItem("token", "profe");
-      } else {
-        sessionStorage.setItem("token", "estudiante");
-        sessionStorage.setItem("lista", data.numero_lista);
-        sessionStorage.setItem("grupo", data.grupo);
-      }
-
-      if (sessionStorage.getItem("token") != "estudiante") {
-        sessionStorage.setItem("nombre", data.nombre);
-        sessionStorage.setItem("director", data.director);
-        sessionStorage.setItem("id", data.id);
-      }
+    // Hardcoded credentials check
+    if (username === "admin" && password === "1234") {
+      sessionStorage.setItem("token", "admin");
+      sessionStorage.setItem("nombre", "admin");
+      sessionStorage.setItem("director", "admin");
+      sessionStorage.setItem("id", "1");
 
       onLoginSuccess();
       navigate("/");
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error.message);
+    } else {
+      alert("Credenciales incorrectas. Usuario: admin, Contraseña: 1234");
     }
   }
 
@@ -60,30 +34,30 @@ export default function Login({ onLoginSuccess }) {
           Bienvenido
         </h1>
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
-          <label htmlFor="user" className="font-medium text-gray-400">
+          <label htmlFor="username" className="font-medium text-gray-400">
             Usuario
           </label>
           <input
             type="text"
-            id="user"
-            name="user"
-            value={user}
+            id="username"
+            name="username"
+            value={username}
             placeholder="Ingresa el usuario"
-            onChange={(e) => setUser(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
             className="p-2 ring-2 ring-gray-700 backdrop-blur-md outline-none focus:ring-blue-600 rounded"
             required
           />
 
-          <label htmlFor="group" className="font-medium text-gray-400">
-            Grupo
+          <label htmlFor="password" className="font-medium text-gray-400">
+            Contraseña
           </label>
           <input
-            type="text"
-            id="group"
-            name="group"
-            value={group}
-            placeholder="Ingresa el grupo"
-            onChange={(e) => setGroup(e.target.value)}
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            placeholder="Ingresa la contraseña"
+            onChange={(e) => setPassword(e.target.value)}
             className="p-2 ring-2 ring-gray-700 backdrop-blur-md outline-none focus:ring-blue-600 rounded"
             required
           />

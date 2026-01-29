@@ -36,29 +36,66 @@ export default function OverviewPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetches = [
-          fetch(API_URL),
-          fetch("https://a00573055.pythonanywhere.com/db/top/"),
-          fetch("https://a00573055.pythonanywhere.com//db/max/"),
-          fetch("https://a00573055.pythonanywhere.com/db/completado/"),
-          fetch(
-            "https://a00573055.pythonanywhere.com/db/aprobados/", // pastel
-            {
-              method: "GET",
-            }
-          ),
-        ];
+        // ============ API CALLS COMMENTED OUT ============
+        // const fetches = [
+        //   fetch(API_URL),
+        //   fetch("https://a00573055.pythonanywhere.com/db/top/"),
+        //   fetch("https://a00573055.pythonanywhere.com//db/max/"),
+        //   fetch("https://a00573055.pythonanywhere.com/db/completado/"),
+        //   fetch(
+        //     "https://a00573055.pythonanywhere.com/db/aprobados/", // pastel
+        //     {
+        //       method: "GET",
+        //     }
+        //   ),
+        // ];
 
-        const responses = await Promise.all(fetches);
+        // const responses = await Promise.all(fetches);
 
-        responses.forEach((response) => {
-          if (!response.ok) {
-            throw new Error("One of the network responses was not ok");
-          }
-        });
+        // responses.forEach((response) => {
+        //   if (!response.ok) {
+        //     throw new Error("One of the network responses was not ok");
+        //   }
+        // });
 
-        const [mean_data, top_data, aaaa, completado, aprobados] =
-          await Promise.all(responses.map((res) => res.json()));
+        // const [mean_data, top_data, aaaa, completado, aprobados] =
+        //   await Promise.all(responses.map((res) => res.json()));
+
+        // ============ HARDCODED DATA ============
+        const mean_data = {
+          pokemon: Array(150).fill(null) // Simulate 150 pokemon
+        };
+
+        const top_data = {
+          mejores: [
+            { id: "Estudiante 1", monedas: 950 },
+            { id: "Estudiante 5", monedas: 880 },
+            { id: "Estudiante 12", monedas: 820 },
+            { id: "Estudiante 8", monedas: 760 },
+            { id: "Estudiante 3", monedas: 720 },
+          ],
+          peores: [
+            { id: "Estudiante 20", monedas: 180 },
+            { id: "Estudiante 15", monedas: 220 },
+            { id: "Estudiante 18", monedas: 280 },
+            { id: "Estudiante 22", monedas: 320 },
+            { id: "Estudiante 17", monedas: 360 },
+          ],
+        };
+
+        const completado = {
+          promedio_juegos_completados: 12.5
+        };
+
+        const aprobados = {
+          aprobados: [
+            { aprobados: 20, no_aprobado: 5 },   // Nivel 1
+            { aprobados: 18, no_aprobado: 7 },   // Nivel 2
+            { aprobados: 15, no_aprobado: 10 },  // Nivel 3
+            { aprobados: 12, no_aprobado: 13 },  // Nivel 4
+            { aprobados: 10, no_aprobado: 15 },  // Nivel 5
+          ]
+        };
 
         const numPokemon = mean_data.pokemon?.length || 0;
 

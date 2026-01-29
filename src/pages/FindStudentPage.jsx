@@ -8,16 +8,26 @@ export default function FindStudentPage() {
 
   // Sample student data - replace with your actual data source
   const studentData = [
-    { id: 1, genero: "M", grupo: "A", id_docente: 2, monedas: 20, numero_lista: "1" },
-    { id: 2, genero: "F", grupo: "B", id_docente: 3, monedas: 100, numero_lista: "1" },
-    { id: 3, genero: "M", grupo: "A", id_docente: 2, monedas: 10, numero_lista: "2" },
-    { id: 4, genero: "F", grupo: "B", id_docente: 3, monedas: 30, numero_lista: "2" },
-    { id: 5, genero: "M", grupo: "A", id_docente: 2, monedas: 15, numero_lista: "3" },
-    { id: 6, genero: "F", grupo: "B", id_docente: 3, monedas: 20, numero_lista: "3" },
-    { id: 7, genero: "M", grupo: "A", id_docente: 2, monedas: 40, numero_lista: "4" },
-    { id: 8, genero: "F", grupo: "B", id_docente: 3, monedas: 5, numero_lista: "4" },
-    { id: 9, genero: "M", grupo: "A", id_docente: 2, monedas: 2, numero_lista: "5" },
-    { id: 10, genero: "F", grupo: "B", id_docente: 3, monedas: 26, numero_lista: "5" }
+    { id: 1, genero: "M", grupo: "A", id_docente: 2, monedas: 950, numero_lista: "1", nombre: "Juan Pérez" },
+    { id: 2, genero: "F", grupo: "B", id_docente: 3, monedas: 880, numero_lista: "1", nombre: "María García" },
+    { id: 3, genero: "M", grupo: "A", id_docente: 2, monedas: 820, numero_lista: "2", nombre: "Carlos López" },
+    { id: 4, genero: "F", grupo: "B", id_docente: 3, monedas: 760, numero_lista: "2", nombre: "Ana Martínez" },
+    { id: 5, genero: "M", grupo: "A", id_docente: 2, monedas: 720, numero_lista: "3", nombre: "Luis Rodríguez" },
+    { id: 6, genero: "F", grupo: "B", id_docente: 3, monedas: 680, numero_lista: "3", nombre: "Sofia Hernández" },
+    { id: 7, genero: "M", grupo: "A", id_docente: 2, monedas: 640, numero_lista: "4", nombre: "Diego González" },
+    { id: 8, genero: "F", grupo: "B", id_docente: 3, monedas: 590, numero_lista: "4", nombre: "Laura Díaz" },
+    { id: 9, genero: "M", grupo: "A", id_docente: 2, monedas: 540, numero_lista: "5", nombre: "Miguel Torres" },
+    { id: 10, genero: "F", grupo: "B", id_docente: 3, monedas: 500, numero_lista: "5", nombre: "Carmen Ruiz" },
+    { id: 11, genero: "M", grupo: "A", id_docente: 2, monedas: 460, numero_lista: "6", nombre: "Pedro Ramírez" },
+    { id: 12, genero: "F", grupo: "B", id_docente: 3, monedas: 420, numero_lista: "6", nombre: "Isabel Flores" },
+    { id: 13, genero: "M", grupo: "A", id_docente: 2, monedas: 380, numero_lista: "7", nombre: "Javier Morales" },
+    { id: 14, genero: "F", grupo: "B", id_docente: 3, monedas: 340, numero_lista: "7", nombre: "Patricia Vargas" },
+    { id: 15, genero: "M", grupo: "A", id_docente: 2, monedas: 300, numero_lista: "8", nombre: "Antonio Castillo" },
+    { id: 16, genero: "F", grupo: "B", id_docente: 3, monedas: 260, numero_lista: "8", nombre: "Rosa Jiménez" },
+    { id: 17, genero: "M", grupo: "A", id_docente: 2, monedas: 220, numero_lista: "9", nombre: "Fernando Ortiz" },
+    { id: 18, genero: "F", grupo: "B", id_docente: 3, monedas: 180, numero_lista: "9", nombre: "Claudia Muñoz" },
+    { id: 19, genero: "M", grupo: "A", id_docente: 2, monedas: 140, numero_lista: "10", nombre: "Roberto Salas" },
+    { id: 20, genero: "F", grupo: "B", id_docente: 3, monedas: 100, numero_lista: "10", nombre: "Gabriela Vega" }
   ];
 
   // Filter students based on search input
@@ -25,6 +35,7 @@ export default function FindStudentPage() {
     if (searchInput === "") return true;
 
     return (
+      student.nombre.toLowerCase().includes(searchInput.toLowerCase()) ||
       student.genero.toLowerCase().includes(searchInput.toLowerCase()) ||
       student.grupo.toLowerCase().includes(searchInput.toLowerCase()) ||
       student.numero_lista.includes(searchInput) ||
@@ -109,6 +120,7 @@ export default function FindStudentPage() {
                 <thead className="bg-gray-900 bg-opacity-60">
                   <tr className="text-left">
                     <th className="p-4 font-medium">ID</th>
+                    <th className="p-4 font-medium">Nombre</th>
                     <th className="p-4 font-medium">Gender</th>
                     <th className="p-4 font-medium">Group</th>
                     <th className="p-4 font-medium">List Number</th>
@@ -122,6 +134,7 @@ export default function FindStudentPage() {
                       className="border-t border-gray-700 hover:bg-gray-700 hover:bg-opacity-30 transition-colors cursor-pointer"
                     >
                       <td className="p-4">{student.id}</td>
+                      <td className="p-4">{student.nombre}</td>
                       <td className="p-4">{student.genero}</td>
                       <td className="p-4">{student.grupo}</td>
                       <td className="p-4">{student.numero_lista}</td>
@@ -144,9 +157,11 @@ export default function FindStudentPage() {
                   <div className="flex justify-between items-center">
                     <div>
                       <h3 className="text-lg font-medium text-indigo-300">
-                        {student.genero === "M" ? "Mr." : "Ms."} {student.numero_lista}
+                        {student.nombre}
                       </h3>
-                      <p className="text-gray-400">Group: {student.grupo}</p>
+                      <p className="text-gray-400">
+                        {student.genero === "M" ? "Mr." : "Ms."} - Group: {student.grupo}
+                      </p>
                     </div>
                     <div className="text-right">
                       <div className="text-sm text-gray-400">
